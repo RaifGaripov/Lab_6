@@ -1,15 +1,20 @@
 package com.company;
 
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import com.google.gson.*;
+import java.util.List;
+import java.util.ArrayList;
 
 public class mainFrame extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
     private JList shapes;
-    //FileSource<Shape> fileSource;
+    FileSource<Shape> fileSource;
     private JButton moveDownButton;
     private JButton moveUpButton;
     private JButton removeButton;
@@ -28,6 +33,45 @@ public class mainFrame extends JDialog {
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
+
+        fileSource = new ShapeSource("C:\\Users\\altai\\IdeaProjects\\Lab_6\\Lab_5\\shapes.json");
+        DefaultListModel<Lab_5.src.data.shapes.Shape> dlm = new DefaultListModel<>();
+
+        try {
+            dlm.addAll(fileSource.fromFile());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        shapes.setListData(dlm.toArray());
+
+
+
+
+        createRectangleButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createRectangle rectangleFrame = new createRectangle();
+                rectangleFrame.setVisible(true);
+            }
+        });
+
+        createSquareButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createSquare squareFrame = new createSquare();
+                squareFrame.setVisible(true);
+            }
+        });
+
+        createTriangleButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createTriangle triangleFrame = new createTriangle();
+                triangleFrame.setVisible(true);
+            }
+        });
+
         createCircleButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -41,6 +85,7 @@ public class mainFrame extends JDialog {
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
+                //DefaultListModel<Lab_5.src.data.shapes.Shape> Shapes = new DefaultListModel<>();
                 onCancel();
             }
         });

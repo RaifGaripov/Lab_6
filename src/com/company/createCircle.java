@@ -1,5 +1,5 @@
 package com.company;
-
+import Lab_5.src.data.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -15,12 +15,17 @@ public class createCircle extends JDialog {
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
         setTitle("Create circle frame");
+
         int width = Toolkit.getDefaultToolkit().getScreenSize().width / 2 - 150;
         int height = Toolkit.getDefaultToolkit().getScreenSize().height / 2 - 200;
         setBounds(width, height, 300, 200);
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+               /* double radius = 0;
+                try {
+                    radius
+                }*/
                 onOK();
             }
         });

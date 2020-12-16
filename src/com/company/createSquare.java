@@ -1,5 +1,5 @@
 package com.company;
-
+import Lab_5.src.data.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
