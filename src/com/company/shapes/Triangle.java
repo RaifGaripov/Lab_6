@@ -1,4 +1,4 @@
-package data.shapes;
+package com.company.shapes;
 
 public class Triangle implements Shape {
     private final double side1;

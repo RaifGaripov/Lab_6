@@ -1,4 +1,4 @@
-package data.shapes;
+package com.company.shapes;
 
 public class Circle implements Shape {
     private final double radius;

@@ -1,7 +1,7 @@
-package data;
+package com.company;
 
 import com.google.gson.*;
-import data.shapes.*;
+import com.company.shapes.*;
 
 import java.lang.reflect.Type;
 

@@ -1,7 +1,6 @@
-package data;
+package com.company;
 
-import data.shapes.*;
-
+import com.company.shapes.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

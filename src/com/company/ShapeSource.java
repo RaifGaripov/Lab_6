@@ -1,9 +1,9 @@
-package data;
+package com.company;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import data.shapes.Shape;
+import com.company.shapes.*;
 
 import java.io.*;
 import java.lang.reflect.Type;

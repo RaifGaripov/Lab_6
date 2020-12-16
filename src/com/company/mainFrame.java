@@ -1,10 +1,11 @@
 package com.company;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+
+import com.company.shapes.Shape;
 import com.google.gson.*;
 import java.util.List;
 import java.util.ArrayList;
@@ -34,8 +35,8 @@ public class mainFrame extends JDialog {
         getRootPane().setDefaultButton(buttonOK);
 
 
-        fileSource = new ShapeSource("C:\\Users\\altai\\IdeaProjects\\Lab_6\\Lab_5\\shapes.json");
-        DefaultListModel<Lab_5.src.data.shapes.Shape> dlm = new DefaultListModel<>();
+        fileSource = new ShapeSource("shapes.json");
+        DefaultListModel<Shape> dlm = new DefaultListModel<>();
 
         try {
             dlm.addAll(fileSource.fromFile());
@@ -85,7 +86,9 @@ public class mainFrame extends JDialog {
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                //DefaultListModel<Lab_5.src.data.shapes.Shape> Shapes = new DefaultListModel<>();
+                DefaultListModel<Shape> Shapes = new DefaultListModel<>();
+
+
                 onCancel();
             }
         });
