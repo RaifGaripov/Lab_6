@@ -19,4 +19,9 @@ public class Square implements Shape {
     public double calcPerimeter() {
         return 4 * this.side;
     }
+
+    @Override
+    public String toString() {
+        return "Square (" + side + ")";
+    }
 }

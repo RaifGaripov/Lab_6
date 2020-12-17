@@ -1,5 +1,7 @@
 package com.company;
-import Lab_5.src.data.*;
+import com.company.shapes.*;
+import com.company.shapes.Rectangle;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -11,7 +13,7 @@ public class createRectangle extends JDialog {
     private JTextField textField1;
     private JTextField textField2;
 
-    public createRectangle() {
+    public createRectangle(Listener listener) {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -23,7 +25,23 @@ public class createRectangle extends JDialog {
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                double a = 0;
+                double b = 0;
+                try {
+                    a = Double.parseDouble(textField1.getText());
+                    b = Double.parseDouble(textField2.getText());
+                } catch (Exception exception) {
+                    exception.getMessage();
+                }
+
+                if (a <= 0 || b <= 0) {
+                    throw new IllegalArgumentException();
+                } else {
+                    listener.listen(new Rectangle(a, b));
+                    onOK();
+                }
                 onOK();
+
             }
         });
 
@@ -61,9 +79,7 @@ public class createRectangle extends JDialog {
 
 
     public static void main(String[] args) {
-        createRectangle dialog = new createRectangle();
-        dialog.pack();
-        dialog.setVisible(true);
+
         System.exit(0);
     }
 

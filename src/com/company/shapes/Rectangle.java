@@ -23,4 +23,8 @@ public class Rectangle implements Shape {
     public double calcPerimeter() {
         return (this.side1 + this.side2) * 2;
     }
+
+    @Override public String toString() {
+        return "Rectangle (" + side1 + ", " + side2 + ")";
+    }
 }

@@ -1,5 +1,5 @@
 package com.company;
-import Lab_5.src.data.*;
+import com.company.shapes.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -10,7 +10,7 @@ public class createCircle extends JDialog {
     private JButton buttonCancel;
     private JTextField textField1;
 
-    public createCircle() {
+    public createCircle(Listener listener) {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -22,10 +22,20 @@ public class createCircle extends JDialog {
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-               /* double radius = 0;
+                double radius = 0;
                 try {
-                    radius
-                }*/
+                    radius = Double.parseDouble(textField1.getText());
+                } catch (Exception exception) {
+                    exception.getMessage();
+                }
+
+                if (radius <= 0) {
+                    throw new IllegalArgumentException();
+                }
+                else {
+                    listener.listen(new Circle(radius));
+                    onOK();
+                }
                 onOK();
             }
         });
@@ -64,9 +74,6 @@ public class createCircle extends JDialog {
 
 
     public static void main(String[] args) {
-        createCircle dialog = new createCircle();
-        dialog.pack();
-        dialog.setVisible(true);
         System.exit(0);
     }
 

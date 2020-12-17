@@ -1,6 +1,8 @@
 package com.company;
-import Lab_5.src.data.*;
+import com.company.shapes.*;
+
 import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -12,7 +14,7 @@ public class createTriangle extends JDialog {
     private JTextField textField2;
     private JTextField textField3;
 
-    public createTriangle() {
+    public createTriangle(Listener listener) {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -24,6 +26,23 @@ public class createTriangle extends JDialog {
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                double a = 0;
+                double b = 0;
+                double c = 0;
+                try {
+                    a = Double.parseDouble(textField1.getText());
+                    b = Double.parseDouble(textField2.getText());
+                    c = Double.parseDouble(textField3.getText());
+                } catch (Exception exception) {
+                    exception.getMessage();
+                }
+                if ((a <= 0 || b <= 0 || c <= 0)
+                        || (a + b <= c || a + c <= b || b + c <= a)) {
+                    throw new IllegalArgumentException();
+                } else {
+                    listener.listen(new Triangle(a, b, c));
+                    onOK();
+                }
                 onOK();
             }
         });
@@ -61,9 +80,6 @@ public class createTriangle extends JDialog {
     }
 
     public static void main(String[] args) {
-        createTriangle dialog = new createTriangle();
-        dialog.pack();
-        dialog.setVisible(true);
         System.exit(0);
     }
 

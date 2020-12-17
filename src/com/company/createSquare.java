@@ -1,5 +1,5 @@
 package com.company;
-import Lab_5.src.data.*;
+import com.company.shapes.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -10,7 +10,7 @@ public class createSquare extends JDialog {
     private JButton buttonCancel;
     private JTextField textField1;
 
-    public createSquare() {
+    public createSquare(Listener listener) {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -22,6 +22,20 @@ public class createSquare extends JDialog {
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                double a = 0;
+                try {
+                    a = Double.parseDouble(textField1.getText());
+                } catch (Exception exception) {
+                    exception.getMessage();
+                }
+
+                if (a <= 0) {
+                    throw new IllegalArgumentException();
+                }
+                else {
+                    listener.listen(new Square(a));
+                    onOK();
+                }
                 onOK();
             }
         });
@@ -59,9 +73,7 @@ public class createSquare extends JDialog {
     }
 
     public static void main(String[] args) {
-        createSquare dialog = new createSquare();
-        dialog.pack();
-        dialog.setVisible(true);
+
         System.exit(0);
     }
 

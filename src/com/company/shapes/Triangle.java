@@ -5,8 +5,8 @@ public class Triangle implements Shape {
     private final double side2;
     private final double side3;
 
-    public Triangle(double a, double b, double c) throws IllegalArgumentException{
-        if(a >= b + c || b >= a + c || c >= a + b ||
+    public Triangle(double a, double b, double c) throws IllegalArgumentException {
+        if (a >= b + c || b >= a + c || c >= a + b ||
                 a <= 0 || b <= 0 || c <= 0)
             throw new IllegalArgumentException("Nonexistent triangle");
         else {
@@ -25,5 +25,10 @@ public class Triangle implements Shape {
     @Override
     public double calcPerimeter() {
         return this.side1 + this.side2 + this.side3;
+    }
+
+    @Override
+    public String toString() {
+        return "Triangle (" + side1 + ", " + side2 + ", " + side3 + ")";
     }
 }

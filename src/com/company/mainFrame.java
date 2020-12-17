@@ -1,12 +1,18 @@
 package com.company;
 
 import javax.swing.*;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
 import com.company.shapes.Shape;
 import com.google.gson.*;
+
+import java.util.AbstractList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -46,13 +52,78 @@ public class mainFrame extends JDialog {
 
         shapes.setListData(dlm.toArray());
 
+        dlm.addListDataListener(new ListDataListener() {
+            @Override
+            public void intervalAdded(ListDataEvent e) {
+                shapes.setListData(dlm.toArray());
+                try {
+                    List<Shape> shapesNew = new ArrayList<>();
+                    Arrays.stream(dlm.toArray()).forEach(element -> shapesNew.add((Shape) element));
+                    fileSource.toFile(shapesNew);
 
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+
+            @Override
+            public void intervalRemoved(ListDataEvent e) {
+                shapes.setListData(dlm.toArray());
+                try {
+                    List<Shape> shapesNew = new ArrayList<>();
+                    Arrays.stream(dlm.toArray()).forEach(element -> shapesNew.add((Shape) element));
+                    fileSource.toFile(shapesNew);
+
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+
+            @Override
+            public void contentsChanged(ListDataEvent e) {
+                shapes.setListData(dlm.toArray());
+                try {
+                    List<Shape> shapesNew = new ArrayList<>();
+                    Arrays.stream(dlm.toArray()).forEach(element -> shapesNew.add((Shape) element));
+                    fileSource.toFile(shapesNew);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+        });
+
+        moveUpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int index = shapes.getSelectedIndex();
+                if (index - 1 < 0) throw new IllegalArgumentException();
+                Shape newShape = dlm.set(index - 1, dlm.get(index));
+                dlm.set(index, newShape);
+            }
+        });
+
+        moveDownButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int index = shapes.getSelectedIndex();
+                if (index + 1 >= dlm.size()) throw new IllegalArgumentException();
+                Shape newShape = dlm.set(index + 1, dlm.get(index));
+                dlm.set(index, newShape);
+            }
+        });
+
+        removeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dlm.remove(shapes.getSelectedIndex());
+            }
+        });
 
 
         createRectangleButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                createRectangle rectangleFrame = new createRectangle();
+                createRectangle rectangleFrame = new createRectangle(dlm::addElement);
                 rectangleFrame.setVisible(true);
             }
         });
@@ -60,7 +131,7 @@ public class mainFrame extends JDialog {
         createSquareButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                createSquare squareFrame = new createSquare();
+                createSquare squareFrame = new createSquare(dlm::addElement);
                 squareFrame.setVisible(true);
             }
         });
@@ -68,7 +139,7 @@ public class mainFrame extends JDialog {
         createTriangleButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                createTriangle triangleFrame = new createTriangle();
+                createTriangle triangleFrame = new createTriangle(dlm::addElement);
                 triangleFrame.setVisible(true);
             }
         });
@@ -76,7 +147,7 @@ public class mainFrame extends JDialog {
         createCircleButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                createCircle circleFrame = new createCircle();
+                createCircle circleFrame = new createCircle(dlm::addElement);
                 circleFrame.setVisible(true);
             }
         });
@@ -86,9 +157,6 @@ public class mainFrame extends JDialog {
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                DefaultListModel<Shape> Shapes = new DefaultListModel<>();
-
-
                 onCancel();
             }
         });

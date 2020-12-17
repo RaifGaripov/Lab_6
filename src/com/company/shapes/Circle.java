@@ -19,4 +19,9 @@ public class Circle implements Shape {
     public double calcPerimeter() {
         return 2 * Math.PI * this.radius;
     }
+
+    @Override
+    public String toString() {
+        return "Circle (" + radius + ")";
+    }
 }
